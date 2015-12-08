@@ -19,12 +19,10 @@ public class MainController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	//value는 url을 직접 할당. url 하나당 메소드 하나?
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+	public String home(Locale locale, Model model) { //model이 request, responce 역할을 다함.
+		logger.info("메인컨트롤러 home 메소드 진입 {}.", locale);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -33,7 +31,7 @@ public class MainController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "home"; // home은 멤버의 home.jsp
 	}
 	
 }
