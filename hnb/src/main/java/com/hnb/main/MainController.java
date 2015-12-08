@@ -25,11 +25,10 @@ public class MainController {
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
 		String formattedDate = dateFormat.format(date);
-		
 		model.addAttribute("serverTime", formattedDate );
-		
+		// model은 만능 gson(String)과 json(빈객체)를 동시에 가능하게함. 
+		// 내부적으로 저런 역할을 함. 메소드 위쪽에 Model model만 선언하면 끝.
 		return "home"; //home 은 jsp파일의 이름이 됨.
 	}
 	
