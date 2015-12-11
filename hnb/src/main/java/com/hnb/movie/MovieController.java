@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,7 +65,7 @@ public class MovieController {
 	// 나중에 Member와 movie를 합친 슈퍼객체라고 부름..
 	@RequestMapping("/movie_name/{movieName}")
 	public @ResponseBody MovieVO movieName( //responseBody는 JSON타입.
-			@RequestParam("movieName")String filmNumber,
+			@PathVariable("movieName")String filmNumber,
 			Model model	
 			){
 		logger.info("무비컨트롤러-movieName() 진입");
@@ -111,18 +112,19 @@ public class MovieController {
 		logger.info("무비컨트롤러-movieBasic() 진입");
 		logger.info("영화 아이디 : {}",filmNumber);
 		movie = service.searchByName(filmNumber);
-		logger.info("영화 제목 : {}",movie.getFilmName());
+		logger.info("MovieBasic컷의 영화 제목 : {}",movie.getFilmName());
 		model.addAttribute("movie", movie);
 		return movie;
 	}
 	
 	//리스트를 던질때..
 	@RequestMapping("/movie_Chart")
-	public Model movieChart(Model model){
+	public @ResponseBody List<MovieVO> movieChart(){
 		logger.info("무비컨트롤러-movieChart() 진입");
 		List<MovieVO> list = service.getList();
-		model.addAttribute("movieList2", list);
-		return model;
+		logger.info("서비스 리턴값 : {}",list);
+		//model.addAttribute("movieList2", list);
+		return list;
 	}
 	
 	
