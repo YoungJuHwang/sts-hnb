@@ -22,10 +22,10 @@ public class MovieController {
 	@Autowired
 	MovieVO movie;  //얘는 root-context.xml안에 존재함. 여기 필드에 있는것처럼 보이는 것.
 	
-	@RequestMapping("/home")
+	@RequestMapping("/Movie")
 	public String movie(){
 		logger.info("무비컨트롤러-Movie() 진입");
-		return "movie/Movie"; //여기에서 return은 페이지 이동.
+		return "movie/Movie.jsp"; //여기에서 return은 페이지 이동.
 	}
 	/*@RequestMapping("/infomation")
 	public String movieInfo(Model model){
@@ -74,7 +74,7 @@ public class MovieController {
 		model.addAttribute("movie",movie);
 		return movie;
 	}
-	@RequestMapping("/cut")
+	@RequestMapping("/moive_Cut")
 	public Model movieCut(
 			/*@RequestParam("filmNumber")String filmNumber => @RequestParam("filmNumber")생략가능*/
 			String filmNumber,
@@ -89,7 +89,7 @@ public class MovieController {
 		model.addAttribute("arr",arr);
 		return model;
 	}
-	@RequestMapping("/trailer")
+	@RequestMapping("/movie_Tra")
 	public Model movieTra(
 			@RequestParam("filmNumber")String filmNumber,
 			Model model
@@ -103,7 +103,7 @@ public class MovieController {
 		model.addAttribute("arrt",arrt);		
 		return model;
 	}
-	@RequestMapping("/basic")
+	@RequestMapping("/movie_Basic")
 	public @ResponseBody MovieVO movieBasic(
 			@RequestParam("filmNumber")String filmNumber,
 			Model model
@@ -117,7 +117,7 @@ public class MovieController {
 	}
 	
 	//리스트를 던질때..
-	@RequestMapping("/chart")
+	@RequestMapping("/movie_Chart")
 	public Model movieChart(Model model){
 		logger.info("무비컨트롤러-movieChart() 진입");
 		List<MovieVO> list = service.getList();

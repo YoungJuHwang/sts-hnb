@@ -1,5 +1,6 @@
 package com.hnb.member;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,10 +9,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.hnb.global.Constants;
 import com.hnb.global.DatabaseFactory;
 import com.hnb.global.Vendor;
 
+@Repository
 public class MemberDAOImpl implements MemberDAO{
 	private Connection con;
 	private Statement stmt;
