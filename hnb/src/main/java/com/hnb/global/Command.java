@@ -1,28 +1,64 @@
 package com.hnb.global;
 
-public class Command {
-	private String action, view, page; 
-	public Command(String action, String page) {
-		this.action = action;
-		this.page = page;
-		this.setView();
+public class Command implements Orderable{
+	private String column, keyword; 
+	private int pageNO, start, end;
+	public final int PAGESIZE = 5;
+	public Command(String pageNo) {
+		this.pageNO = Integer.parseInt(pageNo);
+		this.start = (Integer.parseInt(pageNo) - 1)*PAGESIZE;
+		this.end = (Integer.parseInt(pageNo)*PAGESIZE);
+	} //페이지 넘버만 넘어왓을때.
+	
+	public Command(String column, String keyword, String pageNo) {
+		this.column = column;
+		this.keyword = keyword;
+		this.pageNO = Integer.parseInt(pageNo);
+		this.start = (Integer.parseInt(pageNo) - 1)*PAGESIZE;
+		this.end = (Integer.parseInt(pageNo)*PAGESIZE);
+	} //검색어도 같이 넘어왔을 때
+	
+	public int getPageNO() {
+		return pageNO;
 	}
-	public String getAction() {
-		return action;
+
+	public int getStart() {
+		return start;
 	}
-	public String getView() {
-		return view;
+
+	public int getEnd() {
+		return end;
 	}
-	public void setAction(String action) {
-		this.action = action;
+
+	public void setPageNO(int pageNO) {
+		this.pageNO = pageNO;
 	}
-	public void setView() {
-		this.view = Constants.VIEW+this.action+"/"+this.page+".jsp";
+
+	public void setStart(int start) {
+		this.start = start;
 	}
-	public String getPage() {
-		return page;
+
+	public void setEnd(int end) {
+		this.end = end;
 	}
-	public void setPage(String page) {
-		this.page = page;
+
+	public String getColumn() {
+		return column;
 	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setColumn(String column) {
+		this.column = column;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
