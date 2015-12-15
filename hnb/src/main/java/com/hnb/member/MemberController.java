@@ -1,14 +1,21 @@
 package com.hnb.member;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
+@SessionAttributes("user")
 @RequestMapping("/member")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -74,14 +81,14 @@ public class MemberController {
 		return "member/join_Result";
 	}
 	@RequestMapping("/logout")
-	public Model logout(Model model){
+	public String logout(Model model, SessionStatus status){
 		logger.info("멤버컨트롤러 logout() - 진입");
 		//session
-		model.addAttribute("result", "success");
-		return model;
+		status.setComplete(); //session의 값을 지우는 것.
+		return "global/default.tiles";
 	}
 	@RequestMapping("/login")
-	public Model login(
+	public @ResponseBody MemberVO login(
 			String id,
 			@RequestParam("pw")String password,
 			Model model
@@ -90,22 +97,18 @@ public class MemberController {
 		logger.info("유저아이디 : {}",id);
 		logger.info("유저 비밀번호: {}",password);
 		member = service.login(id, password);
-		
-		if (member == null) {
-			model.addAttribute("result", "fail");
+		model.addAttribute("user", member);
+		if (member.getId().equals(id)) {
+			logger.info("로그인성공");
 		} else {
-			//session
-			
-			model.addAttribute("result", "success");
-			model.addAttribute("id", id);
-			model.addAttribute("pw", password);
-			if (id.equals("choa")) {
-				model.addAttribute("admin", "yes");
-			} else {
-				model.addAttribute("admin", "no");
-			}
+			logger.info("로그인실패");
 		}
-		return model;
+		if (id.equals("choa")) {
+			model.addAttribute("admin", "yes");
+		} else {
+			model.addAttribute("admin", "no");
+		}
+		return member;
 	}
 	@RequestMapping("/check_Overlap")
 	public Model checkOverlap(
@@ -122,14 +125,17 @@ public class MemberController {
 		}
 		return model;
 	}
-	@RequestMapping("/mapage")
+	@RequestMapping("/mypage")
 	public String mypage(){
 		logger.info("멤버컨트롤러 mypage() - 진입");
-		return "member/mypage";
+		return "member/mypage.tiles";
 	}
-	@RequestMapping("/detail")
-	public Model detail(Model model){
+	@RequestMapping("/detail/{id}")
+	public @ResponseBody MemberVO detail(
+			@PathVariable("id")String id
+			){
 		logger.info("멤버컨트롤러 detail() - 진입");
-		return model;
+		member = service.selectById(id);
+		return member;
 	}
 }

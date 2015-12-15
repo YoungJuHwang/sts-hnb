@@ -6,7 +6,7 @@ public class Command implements Orderable{
 	public final int PAGESIZE = 5;
 	public Command(String pageNo) {
 		this.pageNO = Integer.parseInt(pageNo);
-		this.start = (Integer.parseInt(pageNo) - 1)*PAGESIZE;
+		this.start = (Integer.parseInt(pageNo) - 1)*PAGESIZE+1;
 		this.end = (Integer.parseInt(pageNo)*PAGESIZE);
 	} //페이지 넘버만 넘어왓을때.
 	
@@ -14,7 +14,7 @@ public class Command implements Orderable{
 		this.column = column;
 		this.keyword = keyword;
 		this.pageNO = Integer.parseInt(pageNo);
-		this.start = (Integer.parseInt(pageNo) - 1)*PAGESIZE;
+		this.start = (Integer.parseInt(pageNo) - 1)*PAGESIZE+1;
 		this.end = (Integer.parseInt(pageNo)*PAGESIZE);
 	} //검색어도 같이 넘어왔을 때
 	
