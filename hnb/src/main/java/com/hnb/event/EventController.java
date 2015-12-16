@@ -10,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hnb.article.ArticleServiceImpl;
+import com.hnb.article.ArticleVO;
 import com.hnb.global.Command;
 import com.hnb.global.CommandFactory;
 import com.hnb.member.MemberServiceImpl;
@@ -22,21 +25,23 @@ public class EventController {
 	private static final Logger logger = LoggerFactory.getLogger(EventController.class);
 	@Autowired MemberServiceImpl service;
 	@Autowired MemberVO memberVO;
+	@Autowired ArticleVO article;
+	@Autowired ArticleServiceImpl articleservice;
 	
 	// Restful 방식(url에 {}가 있어 @PathVariable을 사용)
 	@RequestMapping("/boardList/{pageNo}")
-	public String boardList(
+	public @ResponseBody List<ArticleVO> boardList(
 			@PathVariable("pageNo")String pageNo, //default값을 jsp에서 지정함.
 			Model model){
 		logger.info("EventController - boardList() 진입");
 		logger.info("넘어온 페이지 번호 : {}",pageNo);
 		Command command = CommandFactory.list(pageNo);
-		List<MemberVO> list = service.getList(command);
-		int count = service.count();
+		List<ArticleVO> list = articleservice.getList(command);
+		/*int count = service.count();
 		model.addAttribute("memberList",list);
 		model.addAttribute("count",service.count());
-		model.addAttribute("pageNo",pageNo);
-		return "event/boardList.tiles";
+		model.addAttribute("pageNo",pageNo);*/
+		return list;
 	}
 	
 	@RequestMapping("/memberSearch/{pageNo}")
@@ -62,8 +67,14 @@ public class EventController {
 		return "event/boardSearch.tiles";
 	}
 	
-	// SOAP 방식 처리(url에 ? 있는 경우, @RequestParam 사용 즉 쿼리스트링(? 뒤에거)을 사용)
 	@RequestMapping("/boardList")
+	public String goList(){
+		logger.info("EventController - goList() 진입");
+		return "event/boardList.tiles";
+	}
+	
+	// SOAP 방식 처리(url에 ? 있는 경우, @RequestParam 사용 즉 쿼리스트링(? 뒤에거)을 사용)
+	/*@RequestMapping("/boardList")
 	public String boardList2(
 			@RequestParam(value="pageNum", defaultValue="1")String pageNo,
 			@RequestParam(value="column", required=false)String column,
@@ -80,5 +91,5 @@ public class EventController {
 		model.addAttribute("count",count);
 		model.addAttribute("pageNo",pageNo);
 		return "event/boardList.tiles";
-	}
+	}*/
 }
