@@ -14,7 +14,7 @@ import com.hnb.member.MemberServiceImpl;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
-	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 	@Autowired private SqlSession sqlSession;
 	
 	@Override

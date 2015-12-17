@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hnb.admin.AdminServiceImpl;
 import com.hnb.article.ArticleServiceImpl;
 import com.hnb.article.ArticleVO;
 import com.hnb.global.Command;

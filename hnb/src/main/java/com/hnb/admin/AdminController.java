@@ -1,12 +1,21 @@
 package com.hnb.admin;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hnb.main.MainController;
+import com.hnb.article.ArticleVO;
+import com.hnb.global.Command;
+import com.hnb.global.CommandFactory;
 import com.hnb.member.MemberServiceImpl;
 import com.hnb.member.MemberVO;
 import com.hnb.movie.MovieVO;
@@ -16,17 +25,14 @@ import com.hnb.movie.MovieVO;
 @RequestMapping("/admin")
 public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-	@Autowired
-	MemberServiceImpl service; // 17,18번째줄 : service를 쓰기 위한 것. 콩책128
-	@Autowired
-	MemberVO member; // MemberVO 부분은 빈객체를 불러옴.위에도 마찬가지.
-	@Autowired
-	MovieVO movie;
+	@Autowired MemberServiceImpl memberService;
+	@Autowired MemberVO member;
+	@Autowired MovieVO movie;
 	
-	@RequestMapping("/home") // admin/admin으로 보내기 위해 home으로 임의로 약속.
+	@RequestMapping("/main") // admin/admin으로 보내기 위해 home으로 임의로 약속.
 	public String home(){ // admin의 default로 가는 메소드 약속해놈. 완벽한 모델의 분리.
 		logger.info("어드민컨트롤러-Home() 진입");
-		return "admin/Admin";
+		return "admin/admin/main.tiles";
 	}
 	@RequestMapping("/movie_list")
 	public String movieList(){
@@ -35,10 +41,18 @@ public class AdminController {
 		
 		return "admin/movie_list";
 	}
-	@RequestMapping("/member_list")
-	public String memberList(){
-		logger.info("어드민컨트롤러-memberList() 진입");
-		return "admin/member_list";
+	@RequestMapping("/member_list/{pageNo}")
+	public @ResponseBody Map<String, Object> memberList(
+			@PathVariable("pageNo")String pageNo, //default값을 jsp에서 지정함.
+			Model model){
+		logger.info("어드민컨트롤러 - memberList() 진입");
+		logger.info("넘어온 페이지 번호 : {}",pageNo);
+		Command command = CommandFactory.list(pageNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", memberService.getList(CommandFactory.list(pageNo)));
+		map.put("count", memberService.count());
+		map.put("pageNo", pageNo);
+		return map;
 	}
 	@RequestMapping("/member_profile")
 	public String memberProfile(){

@@ -2,8 +2,10 @@ package com.hnb.mapper;
 
 import java.util.List;
 
-import com.hnb.ticket.ScheduleVO;
+import org.springframework.stereotype.Repository;
 
+import com.hnb.ticket.ScheduleVO;
+@Repository
 public interface ScheduleMapper {
 	// C
 		public int insert(ScheduleVO o);

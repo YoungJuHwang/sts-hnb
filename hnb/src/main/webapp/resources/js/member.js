@@ -3,18 +3,21 @@ var Member = {
 			$("#box").load(project + "/member/Member.do");
 		},
 		login : function(project) {
+			var member = {
+					"id":$('#id').val(),  //"id"는 VO의 프로퍼티
+					"password":$('#password').val()
+			};
 			$.ajax(project + "/member/login",{
-				data : {
-					id : $(".form-2 input:text[name=login]").val(),
-					pw : $(".form-2 input:password[name=password]").val()
-				},
+				data : JSON.stringify(member),
 				dataType : "json",
+				type : 'post',
+				contentType : "application/json;",
+				mimeType : "application/json;",
+				async : false,
 				success : function(data) { //data는 멤버VO를 던진것임.
-					//로그인 결과가 성공이면
 					if(data != null){
 						alert("로그인 성공이 떠야되디디데ㅣ")
 						location.href = project+"/member/mypage";
-						// 관리자 아이디로 확인되면
 						if(data.admin === "yes") {
 							$("#outbox").append(
 								'<table id="admin_nav"><tr><td><button id="admin_home">홈</button></td></tr>'+

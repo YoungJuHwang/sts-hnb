@@ -39,9 +39,6 @@
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	
-	<!-- mybatis mapper auto scanning -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.hnb.mapper" />
-	</bean>
+	
 </beans>
 

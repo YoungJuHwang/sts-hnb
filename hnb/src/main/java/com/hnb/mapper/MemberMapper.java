@@ -2,9 +2,11 @@ package com.hnb.mapper;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.hnb.global.Command;
 import com.hnb.member.MemberVO;
-
+@Repository
 public interface MemberMapper {
 	//CRUD
 	   

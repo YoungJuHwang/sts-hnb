@@ -2,9 +2,11 @@ package com.hnb.mapper;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.hnb.article.ArticleVO;
 import com.hnb.global.Command;
-
+@Repository
 public interface ArticleMapper {
 	// C : 추가(회원가입)
 	public int write(ArticleVO article);
