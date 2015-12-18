@@ -17,15 +17,12 @@
 			+'<TD WIDTH=20%><B>작성자</B></TD><TD WIDTH=20%><B>작성일</B></TD><TD WIDTH=8%><B>참조</B></TD></TR>'
 			+'</TABLE></div>';
 			
-			/* +'<c:forEach var="member" items="${memberList}" varStatus="status"><TR><TD WIDTH=10% ALIGN=CENTER>${status.index+1}</TD>'
-			+'<TD WIDTH=20% ALIGN=CENTER>${member.id}</TD><TD WIDTH=20% ALIGN=CENTER><A HREF="BoardContent.jsp">${member.name}</A></TD>'
-			+'<TD WIDTH=30% ALIGN=LEFT>${member.email}</TD><TD WIDTH=18% ALIGN=CENTER>${member.regdate}</TD></TR></c:forEach>'
-			 */
-			/* var pagination = '<TABLE id="pagination">'
+			var pagination = '<TABLE id="pagination">'
 				+'<TR>'
 				+'<TD ALIGN=LEFT WIDTH=100>'
 					+'<IMG SRC="${images}/btn_new.gif" onClick="javascript:location.replace('BoardWrite.jsp')"; STYLE=CURSOR:HAND>'
-				+'</TD>'
+				+'</TD>';
+				
 				+'<TD WIDTH=320 ALIGN=CENTER>'
 					+'<c:if test="${startPage ne 1}">'
 						+'<a href="${context}/event/boardList/1}">'
@@ -49,8 +46,9 @@
 							+'<IMG SRC="${images}/btn_nxt_page.gif">&nbsp;'
 						+'</a>'
 					+'</c:if>'    		     
-				+'</TD>'
-				+'<TD WIDTH=200 ALIGN=RIGHT>'
+				+'</TD>';
+				
+				paginatio +='<TD WIDTH=200 ALIGN=RIGHT>'
 					+'<FORM NAME="memberSearch" action="${context}/event/memberSearch/1">'
 						+'<SELECT NAME="column" SIZE=1>'
 							+'<OPTION VALUE="" SELECTED>선택</OPTION>'
@@ -63,7 +61,7 @@
 					+'</FORM>'
 				+'</TD>'   
 			+'</TR>';
-			table += pagination; */
+			table += pagination;
 			$('.mainView').html(table);
 			});
 		}
