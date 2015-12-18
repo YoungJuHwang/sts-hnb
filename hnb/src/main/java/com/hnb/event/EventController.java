@@ -26,24 +26,7 @@ public class EventController {
 	private static final Logger logger = LoggerFactory.getLogger(EventController.class);
 	@Autowired MemberServiceImpl memberService;
 	@Autowired MemberVO memberVO;
-	@Autowired ArticleVO article;
-	@Autowired ArticleServiceImpl articleservice;
 	
-	// Restful 방식(url에 {}가 있어 @PathVariable을 사용)
-	@RequestMapping("/boardList/{pageNo}")
-	public @ResponseBody List<ArticleVO> boardList(
-			@PathVariable("pageNo")String pageNo, //default값을 jsp에서 지정함.
-			Model model){
-		logger.info("EventController - boardList() 진입");
-		logger.info("넘어온 페이지 번호 : {}",pageNo);
-		Command command = CommandFactory.list(pageNo);
-		List<ArticleVO> list = articleservice.getList(command);
-		/*int count = service.count();
-		model.addAttribute("memberList",list);
-		model.addAttribute("count",service.count());
-		model.addAttribute("pageNo",pageNo);*/
-		return list;
-	}
 	
 	@RequestMapping("/memberSearch/{pageNo}")
 	public String memberSearch(
@@ -68,11 +51,7 @@ public class EventController {
 		return "event/boardSearch.tiles";
 	}
 	
-	@RequestMapping("/boardList")
-	public String goList(){
-		logger.info("EventController - goList() 진입");
-		return "event/boardList.tiles";
-	}
+	
 	
 	// SOAP 방식 처리(url에 ? 있는 경우, @RequestParam 사용 즉 쿼리스트링(? 뒤에거)을 사용)
 	/*@RequestMapping("/boardList")
