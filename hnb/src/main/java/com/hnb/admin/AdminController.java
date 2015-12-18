@@ -48,10 +48,30 @@ public class AdminController {
 		logger.info("어드민컨트롤러 - memberList() 진입");
 		logger.info("넘어온 페이지 번호 : {}",pageNo);
 		Command command = CommandFactory.list(pageNo);
+		int pageSize = 5;
+		int groupSize = 3;
+		int count = memberService.count();
+		int totPage = 0;
+		
+		totPage = (count % pageSize) == 0 ? count / pageSize : count / pageSize + 1;
+		
+		int pageNum = Integer.parseInt(pageNo);
+		int startPage = pageNum - ((pageNum - 1) & groupSize);
+		
+		int lastPage = 0;
+		lastPage = (startPage + pageSize - 1) <= totPage ? startPage + groupSize - 1 : totPage;
+		
+		
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", memberService.getList(CommandFactory.list(pageNo)));
 		map.put("count", memberService.count());
 		map.put("pageNo", pageNo);
+		map.put("startPage", startPage);
+		map.put("groupSize", groupSize);
+		map.put("lastPage", lastPage);
+		map.put("totPage", totPage);
+		
 		return map;
 	}
 	@RequestMapping("/member_profile")

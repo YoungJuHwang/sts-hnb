@@ -24,7 +24,7 @@ import com.hnb.member.MemberVO;
 @RequestMapping("/event")
 public class EventController {
 	private static final Logger logger = LoggerFactory.getLogger(EventController.class);
-	@Autowired MemberServiceImpl service;
+	@Autowired MemberServiceImpl memberService;
 	@Autowired MemberVO memberVO;
 	@Autowired ArticleVO article;
 	@Autowired ArticleServiceImpl articleservice;
@@ -58,8 +58,8 @@ public class EventController {
 		logger.info("넘어온 컬럼 : {}",column);
 		logger.info("넘어온 검색어 : {}",keyword);
 		Command command = CommandFactory.search(column, keyword, pageNo);
-		List<MemberVO> list = service.searchByKeyword(command);
-		int count = service.countByKeyword(command);
+		List<MemberVO> list = memberService.searchByKeyword(command);
+		int count = memberService.countByKeyword(command);
 		logger.info("리스트 결과: {}",list.size());
 		model.addAttribute("memberList",list);
 		model.addAttribute("pageNo",pageNo);

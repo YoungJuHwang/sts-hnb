@@ -9,6 +9,9 @@
 <c:set var="images" value="${context}/resources/images"></c:set>
 <script type=>
 var context = '${context}';
+var images = '${images}';
+var js = '${js}';
+var css = '${css}';
 </script>
 
 
