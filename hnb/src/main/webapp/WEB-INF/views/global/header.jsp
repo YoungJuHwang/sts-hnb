@@ -97,7 +97,7 @@
 		});
 		
 		$("#board_btn").click(function() {
-			location.href = "${context}/event/boardList";
+			location.href = "${context}/article/list";
 		});
 		$("#admin_btn").click(function() {
 			location.href = "${context}/admin/main";

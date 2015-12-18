@@ -24,7 +24,7 @@
   
   
   <!-- 상속의 개념으로 받을 수 있다. -->
-   <definition name="*/*.tiles" extends="layout">
+  <definition name="*/*.tiles" extends="layout">
    	<put-attribute name="header" value="/WEB-INF/views/global/header.jsp"/>
     <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
   </definition>
