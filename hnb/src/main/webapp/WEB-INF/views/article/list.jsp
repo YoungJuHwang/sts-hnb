@@ -1,13 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<style>
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+</style>
+<div id="test-popup" class="white-popup mfp-hide">
+  Popup content
+</div>
+<a href="#test-popup" class="open-popup-link">Show inline popup</a>
+<a href="mobile-friendly-page.html" data-mfp-src="#test-popup" class="open-popup-link">Show inline popup</a>
 
-
-<!-- 
-	전체 레코드 수 - ((현재 페이지 번호-1) * 한 페이지당 레코드 수 + 현재 게시물 출력 순서)
-	count - ((nowPage - 1) * rowPerPage + status.index)
- -->
 <script type="text/javascript">
+
 	$(function() {
 		Article.list('142','1');
+		 $('.open-popup-link').magnificPopup({
+			 type:'inline',
+			  midClick: true
+			  });
+		 
 	});
 	var Article = {
 		list : function(themeNo,pageNo) {
