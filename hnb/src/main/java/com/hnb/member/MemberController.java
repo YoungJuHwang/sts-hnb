@@ -107,12 +107,29 @@ public class MemberController {
 		} else {
 			logger.info("로그인실패");
 		}
-		/*if (param.getId().equals("choa")) {
-			model.addAttribute("admin", "yes");
-		} else {
-			model.addAttribute("admin", "no");
-		}*/
 		return member;
+	}
+	
+	@RequestMapping(value="/login")
+	public Model loginForMobile(Model model,
+			@RequestParam("id")String id,
+			@RequestParam("password")String password
+			){
+		logger.info("멤버컨트롤러 loginForMobile() - 진입");
+		logger.info("유저아이디 : {}",id);
+		logger.info("유저 비밀번호: {}",password);
+		member = service.login(id, password);
+		model.addAttribute("user", member);
+		
+		String u = member.getId();
+		if (id.equals(member.getId())) {
+			logger.info("로그인성공");
+			model.addAttribute("result","success");
+		} else {
+			logger.info("로그인실패");
+			model.addAttribute("result","fail");
+		}
+		return model;
 	}
 	@RequestMapping("/check_Overlap")
 	public Model checkOverlap(
@@ -129,6 +146,8 @@ public class MemberController {
 		}
 		return model;
 	}
+	
+	
 	@RequestMapping("/mypage")
 	public String mypage(){
 		logger.info("멤버컨트롤러 mypage() - 진입");

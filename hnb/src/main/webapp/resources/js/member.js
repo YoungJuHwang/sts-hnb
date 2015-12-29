@@ -16,7 +16,7 @@ var Member = {
 				async : false,
 				success : function(data) { //data는 멤버VO를 던진것임.
 					if(data != null){
-						alert("로그인 성공이 떠야되디디데ㅣ")
+						alert("로그인 성공이 떠야되ㅣ")
 						location.href = project+"/member/mypage";
 						if(data.admin === "yes") {
 							$("#outbox").append(
